@@ -26,7 +26,7 @@ services:
         labels:
             - "traefik.enable=true"
             - "traefik.docker.network=public-vlan"
-            - "traefik.http.routers.personnal-page.rule=Host(`personnal.localhost`)"
+            - "traefik.http.routers.personnal-page.rule=Host(`agrsystems.fr`)"
             - "traefik.http.routers.personnal-page.entrypoints=websecure"
             - "traefik.http.routers.personnal-page.tls.certresolver=letsencrypt"
             - "traefik.http.services.personnal-page.loadbalancer.server.port=8001"
