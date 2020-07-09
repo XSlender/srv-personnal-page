@@ -14,7 +14,7 @@ services:
       - CORS_ALLOW_ORIGIN=^https?://(localhost|127\.0\.0\.1)(:[0-9]+)?$$
       - PROJECT_SOURCE_DIR=/var/www/personnal-page
     volumes:
-      - $PWD/sources:/var/www/personnal-page
+      - $SOURCE_PATH:/var/www/personnal-page
     networks:
       - public-vlan
 

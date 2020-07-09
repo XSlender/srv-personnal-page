@@ -18,7 +18,7 @@ services:
         volumes:
             - $PWD/etc/nginx/nginx.conf.template:/etc/nginx/nginx.conf.template:ro
             - $PWD/etc/nginx/vhosts.conf.template:/etc/nginx/conf.d/vhosts.conf.template:ro
-            - $PWD/sources:/var/www/personnal-page:ro
+            - $SOURCE_PATH:/var/www/personnal-page:ro
         ports:
             - 8001:8001
         depends_on:
@@ -26,7 +26,7 @@ services:
         labels:
             - "traefik.enable=true"
             - "traefik.docker.network=public-vlan"
-            - "traefik.http.routers.personnal-page.rule=Host(`agrsystems.fr`)"
+            - "traefik.http.routers.personnal-page.rule=Host(`$DOMAINS`)"
             - "traefik.http.routers.personnal-page.entrypoints=websecure"
             - "traefik.http.routers.personnal-page.tls.certresolver=letsencrypt"
             - "traefik.http.services.personnal-page.loadbalancer.server.port=8001"
