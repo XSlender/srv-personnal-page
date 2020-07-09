@@ -1,0 +1,38 @@
+version: "3.6"
+
+services:
+    nginx:
+        build:
+            context: ../..
+            dockerfile: ./docker.d/dockerfiles/Dockerfile-nginx
+        container_name: personnal-page-nginx
+        restart: always
+        environment:
+            - DOLLAR=$$
+            - TZ=Europe/Paris
+            - NGINX_WORKER_PROCESSES=auto
+            - NGINX_WORKER_CONNECTIONS=4096
+            - NGINX_GZIP=off
+            - DOCUMENT_ROOT=/var/www/personnal-page/public
+            - PHP_CONTAINER=personnal-page-php
+        volumes:
+            - $PWD/etc/nginx/nginx.conf.template:/etc/nginx/nginx.conf.template:ro
+            - $PWD/etc/nginx/vhosts.conf.template:/etc/nginx/conf.d/vhosts.conf.template:ro
+            - $PWD/sources:/var/www/personnal-page:ro
+        ports:
+            - 8001:8001
+        depends_on:
+            - php
+        labels:
+            - "traefik.enable=true"
+            - "traefik.docker.network=public-vlan"
+            - "traefik.http.routers.personnal-page.rule=Host(`personnal.localhost`)"
+            - "traefik.http.routers.personnal-page.entrypoints=websecure"
+            - "traefik.http.routers.personnal-page.tls.certresolver=letsencrypt"
+            - "traefik.http.services.personnal-page.loadbalancer.server.port=8001"
+        networks:
+            - public-vlan
+
+networks: 
+  public-vlan:
+    external: true
