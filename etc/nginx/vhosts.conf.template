@@ -22,6 +22,6 @@ server {
         return 404;
     }
 
-    error_log  /dev/stderr;
+    error_log  /dev/stdout;
     access_log /dev/stdout main;
 }
