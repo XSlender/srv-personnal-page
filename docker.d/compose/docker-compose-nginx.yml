@@ -35,7 +35,12 @@ services:
             - "traefik.http.services.personnal-page.loadbalancer.server.port=8001"
         networks:
             - public-vlan
-
+        deploy:
+            resources:
+                limits:
+                    memory: "512M"
+                reservations:
+                    memory: "128M"
 networks: 
   public-vlan:
     external: true

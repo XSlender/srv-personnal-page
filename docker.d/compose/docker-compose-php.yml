@@ -17,6 +17,12 @@ services:
       - $SOURCE_PATH:/var/www/personnal-page
     networks:
       - public-vlan
+    deploy:
+      resources:
+        limits:
+          memory: "2G"
+        reservations:
+          memory: "512M"
 
 networks: 
   public-vlan:
