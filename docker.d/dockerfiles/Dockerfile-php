@@ -62,8 +62,8 @@ RUN chmod 644 /usr/local/etc/php/conf.d/docker-php-ext-opcache.ini
 COPY etc/php/www.conf /usr/local/etc/php-fpm.d/
 RUN chmod 644 /usr/local/etc/php-fpm.d/www.conf
 
-COPY etc/php/docker-php-healthcheck /bin
-RUN chmod 755 /bin/docker-php-healthcheck
+# COPY etc/php/docker-php-healthcheck /bin
+# RUN chmod 755 /bin/docker-php-healthcheck
 
 RUN php -r "copy('https://getcomposer.org/installer', 'composer-setup.php');" \
 	&& php composer-setup.php \
@@ -81,7 +81,7 @@ RUN ln -s /usr/local/bin/php /bin/php
 
 ARG PROJECT_SOURCE_DIR
 
-HEALTHCHECK --interval=5s --timeout=3s --retries=3 \
-CMD /bin/docker-php-healthcheck || exit 1
+# HEALTHCHECK --interval=5s --timeout=3s --retries=3 \
+# CMD /bin/docker-php-healthcheck || exit 1
 
 WORKDIR $PROJECT_SOURCE_DIR
